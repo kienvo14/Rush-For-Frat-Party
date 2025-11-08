@@ -40,6 +40,7 @@ const Wishlist = () => {
   }, []);
 
   return (
+    
     <WishlistPage
       userData={userData}
       isLoading={isLoading}

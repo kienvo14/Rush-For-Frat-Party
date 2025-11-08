@@ -1,101 +1,166 @@
 [
     {
-  "id": "2 bed 1 bath near Village Heights",
-  "img": "https://example.com/img1.jpg",
-  "price": 725,
-  "bedrooms": 2,
-  "address": "825 Forest Rd, Williamsville, NY, 14221",
-  "pets": true,
-  "link": "https://example.com/property3"
-},
-{
-  "id": "1 bed ground-floor unit",
-  "img": "https://example.com/img2.jpg",
-  "price": 620,
-  "bedrooms": 1,
-  "address": "1036 Oakwood Ln, Amherst, NY, 14221",
-  "pets": false,
-  "link": "https://example.com/property4"
-},
-{
-  "id": "3 bed 2 bath townhouse",
-  "img": "https://example.com/img3.jpg",
-  "price": 950,
-  "bedrooms": 3,
-  "address": "412 Maple Glen Dr, Williamsville, NY, 14221",
-  "pets": true,
-  "link": "https://example.com/property5"
-},
-{
-  "id": "1 bed loft style",
-  "img": "https://example.com/img4.jpg",
-  "price": 635,
-  "bedrooms": 1,
-  "address": "299 Glen Ave, Williamsville, NY, 14221",
-  "pets": false,
-  "link": "https://example.com/property6"
-},
-{
-  "id": "2 bed 1.5 bath modern condo",
-  "img": "https://example.com/img5.jpg",
-  "price": 810,
-  "bedrooms": 2,
-  "address": "590 Birchwood Cir, Amherst, NY, 14221",
-  "pets": true,
-  "link": "https://example.com/property7"
-},
-{
-  "id": "Studio + den, 1 bath",
-  "img": "https://example.com/img6.jpg",
-  "price": 580,
-  "bedrooms": 1,
-  "address": "1509 Creekside Rd, Williamsville, NY, 14221",
-  "pets": false,
-  "link": "https://example.com/property8"
-},
-{
-  "id": "3 bed single family home",
-  "img": "https://example.com/img7.jpg",
-  "price": 1100,
-  "bedrooms": 3,
-  "address": "202 Highland Pkwy, Amherst, NY, 14221",
-  "pets": true,
-  "link": "https://example.com/property9"
-},
-{
-    "id": "Manhattan-Square-Apartments",
-    "img": "https://photos.zillowstatic.com/fp/de4a45928050a64e18d84e5e10ff1140-p_e.jpg",
-    "price": 1200,
-    "bedrooms": 2,
-    "address": "190 Manhattan Ave # 8cb510e37, Buffalo, NY 14215",
-    "pets": false,
-    "link": "/apartments/buffalo-ny/manhattan-square-apartments/5hQtKT/"
-  },
-  {
-    "id": "Main-Jewett-Apartments",
-    "img": "https://photos.zillowstatic.com/fp/461487746e7229fd4c654f920962c4cc-p_e.jpg",
-    "price": 968,
-    "bedrooms": 0,
-    "address": "10 Jewett Pkwy # 9721db78b, Buffalo, NY 14214",
-    "pets": false,
-    "link": "/apartments/buffalo-ny/main-jewett-apartments/CmGWGw/"
-  },
-  {
-    "id": "Highland-Park",
-    "img": "https://photos.zillowstatic.com/fp/f2ca185fb49c10d25802c28a5ee53b22-p_e.jpg",
-    "price": 1391,
-    "bedrooms": 1,
-    "address": "164 Chalmers Ave # 5328244, Buffalo, NY 14214",
-    "pets": false,
-    "link": "/apartments/buffalo-ny/highland-park/CkBJMd/"
-  },
-  {
-    "id": "Beechwood-Manor-Apartments",
-    "img": "https://photos.zillowstatic.com/fp/5c7039219b3f4d5ad4f4db01bb572e85-p_e.jpg",
-    "price": 1300,
-    "bedrooms": 2,
-    "address": "1035 Beach Rd #B4CB58A91, Buffalo, NY 14225",
-    "pets": false,
-    "link": "https://www.zillow.com/apartments/cheektowaga-ny/beechwood-manor-apartments/5hQtLK/"
-  }
-]
+      "id": "2 bed 1 bath near Village Heights",
+      "img": "https://static01.nyt.com/images/2019/06/02/realestate/31EXCLUSIVE-SOPRANOS-slide-4SEN/31EXCLUSIVE-SOPRANOS-slide-4SEN-videoSixteenByNineJumbo1600.jpg",
+      "price": 725,
+      "bedrooms": 2,
+      "address": "825 Forest Rd, Williamsville, NY, 14221",
+      "pets": true,
+      "link": "https://example.com/property3"
+    },
+    {
+      "id": "1 bed ground-floor unit",
+      "img": "https://static.wikia.nocookie.net/crossovia/images/e/e4/Spongebob-pineapple-house.webp/revision/latest?cb=20220726062936",
+      "price": 620,
+      "bedrooms": 1,
+      "address": "1036 Oakwood Ln, Amherst, NY, 14221",
+      "pets": false,
+      "link": "https://example.com/property4"
+    },
+    {
+      "id": "3 bed 2 bath townhouse",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4tnX-3xIPWK4UFdOT-R8jMJW58dYrZbeqrw&s",
+      "price": 950,
+      "bedrooms": 3,
+      "address": "412 Maple Glen Dr, Williamsville, NY, 14221",
+      "pets": true,
+      "link": "https://example.com/property5"
+    },
+    {
+      "id": "1 bed loft style",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0lUmW_F5CzW5ZIdOw_p_YrX6gzf57sDI8jg&s",
+      "price": 635,
+      "bedrooms": 1,
+      "address": "299 Glen Ave, Williamsville, NY, 14221",
+      "pets": false,
+      "link": "https://example.com/property6"
+    },
+    {
+      "id": "2 bed 1.5 bath modern condo",
+      "img": "https://srresidenceschicago.com/wp-content/uploads/vista_wide-two-bed-3.jpg",
+      "price": 810,
+      "bedrooms": 2,
+      "address": "590 Birchwood Cir, Amherst, NY, 14221",
+      "pets": true,
+      "link": "https://example.com/property7"
+    },
+    {
+      "id": "Studio + den, 1 bath",
+      "img": "https://example.com/img6.jpg",
+      "price": 580,
+      "bedrooms": 1,
+      "address": "1509 Creekside Rd, Williamsville, NY, 14221",
+      "pets": false,
+      "link": "https://example.com/property8"
+    },
+    {
+      "id": "3 bed single family home",
+      "img": "https://example.com/img7.jpg",
+      "price": 1100,
+      "bedrooms": 3,
+      "address": "202 Highland Pkwy, Amherst, NY, 14221",
+      "pets": true,
+      "link": "https://example.com/property9"
+    },
+    {
+        "id": "Manhattan-Square-Apartments",
+        "img": "https://photos.zillowstatic.com/fp/de4a45928050a64e18d84e5e10ff1140-p_e.jpg",
+        "price": 1200,
+        "bedrooms": 2,
+        "address": "190 Manhattan Ave # 8cb510e37, Buffalo, NY 14215",
+        "pets": false,
+        "link": "/apartments/buffalo-ny/manhattan-square-apartments/5hQtKT/"
+      },
+      {
+        "id": "Main-Jewett-Apartments",
+        "img": "https://photos.zillowstatic.com/fp/461487746e7229fd4c654f920962c4cc-p_e.jpg",
+        "price": 968,
+        "bedrooms": 0,
+        "address": "10 Jewett Pkwy # 9721db78b, Buffalo, NY 14214",
+        "pets": false,
+        "link": "/apartments/buffalo-ny/main-jewett-apartments/CmGWGw/"
+      },
+      {
+        "id": "Highland-Park",
+        "img": "https://photos.zillowstatic.com/fp/f2ca185fb49c10d25802c28a5ee53b22-p_e.jpg",
+        "price": 1391,
+        "bedrooms": 1,
+        "address": "164 Chalmers Ave # 5328244, Buffalo, NY 14214",
+        "pets": false,
+        "link": "/apartments/buffalo-ny/highland-park/CkBJMd/"
+      },
+      {
+        "id": "Beechwood-Manor-Apartments",
+        "img": "https://photos.zillowstatic.com/fp/5c7039219b3f4d5ad4f4db01bb572e85-p_e.jpg",
+        "price": 1300,
+        "bedrooms": 2,
+        "address": "1035 Beach Rd #B4CB58A91, Buffalo, NY 14225",
+        "pets": false,
+        "link": "https://www.zillow.com/apartments/cheektowaga-ny/beechwood-manor-apartments/5hQtLK/"
+      },
+      {
+        "id": "Chestnut-Ridge",
+        "img": "https://photos.zillowstatic.com/fp/eab14a03fd402cd9a9daa024108e2c10-p_e.jpg",
+        "price": 1265,
+        "bedrooms": 2,
+        "address": "4280 Chestnut Ridge Rd # b1dda27a8, Buffalo, NY 14228",
+        "pets": false,
+        "link": "/apartments/buffalo-ny/chestnut-ridge/CkhGJW/"
+      },
+      {
+        "id": "Kensington-Apartments",
+        "img": "https://photos.zillowstatic.com/fp/6a601d51cd12866edf9799ce286541ce-p_e.jpg",
+        "price": 1175,
+        "bedrooms": 2,
+        "address": "1617 Kensington Ave Apt B-1, Buffalo, NY 14215",
+        "pets": false,
+        "link": "/apartments/cheektowaga-ny/kensington-apartments/98Bcsj/"
+      },
+      {
+        "id": "Angle-Tyler-Apartments",
+        "img": "https://photos.zillowstatic.com/fp/a5dccfda75b3e918d9175abdab577b90-p_e.jpg",
+        "price": 1175,
+        "bedrooms": 2,
+        "address": "2 Angle St # a73b4f3f4, Buffalo, NY 14214",
+        "pets": false,
+        "link": "/apartments/buffalo-ny/angle-tyler-apartments/CkfrQj/"
+      },
+      {
+        "id": "Axis-360",
+        "img": "https://media.vrbo.com/lodging/34000000/33310000/33307500/33307429/4719dd3f.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill",
+        "price": 979,
+        "bedrooms": 3,
+        "address": "89 Lasalle Ave # 776f18ccb, Buffalo, NY 14214",
+        "pets": false,
+        "link": "/apartments/buffalo-ny/axis-360/CkCkfv/"
+      },
+    {
+        "id": "1 bed 1 bath",
+        "img": "https://photos.zillowstatic.com/fp/21d2f7e2bff48584d2c7b22388dd89e0-uncropped_scaled_within_1536_1152.webp",
+        "price": 650,
+        "bedrooms": 1,
+        "address": "770 Klein Rd, Williamsville, NY, 14221",
+        "pets": false,
+        "link": "https://example.com/property2"
+      },
+     {
+        "id": "Villas On Whatever",
+        "img": "https://goshow.com/wp-content/uploads/2024/05/JK-IMG_4939-retouched.jpg",
+        "price": 800,
+        "bedrooms": 2 ,
+        "address": "999 Maple Rd, Williamsville, 14221 ",
+        "pets": true,
+        "link": "https://example.com/property2"
+      },
+     {
+        "id": " 3 bd 1 bath in Tonawanda ",
+        "img": "https://goshow.com/wp-content/uploads/2024/05/JK-IMG_4939-retouched.jpg",
+        "price": 800,
+        "bedrooms": 2 ,
+        "address": "2 Gibson St, Tonawanda, 14150 ",
+        "pets": true,
+        "link": "https://example.com/property2"
+      }
+    ]
+    
+    
