@@ -16,7 +16,6 @@ import { setActiveInput } from "../../redux/mainFormSlice";
 import { deleteFavorite, saveFavorite } from "../../api/apiAuthentication";
 
 import HouseCard from "./RoomsDesktop";
-import MobileHouseCard from "./RoomsMobile";
 
 const ContinueExploring = ({
   selectedIcon,
@@ -28,31 +27,29 @@ const ContinueExploring = ({
   return (
     <div className="w-full flex flex-col mt-10 gap-y-2 justify-center items-center h-20">
       <span className="text-lg font-medium">
-        {`Continue exploring ${selectedIcon} ${
-          selectedIcon.endsWith("s") ? "" : "homes"
-        }`}
+        {`Continue exploring ${selectedIcon} ${selectedIcon?.endsWith("s") ? "" : "homes"}`}
       </span>
       <button
-        className="bg-black text-white h-12 w-32 rounded-lg"
+        className={`bg-black text-white h-12 w-32 rounded-lg ${isFetchingNextPage ? "opacity-60 cursor-not-allowed" : ""}`}
         onClick={() => {
           fetchNextPage();
           showMore.current = false;
         }}
         disabled={!hasNextPage || isFetchingNextPage}
       >
-        Show More
+        {isFetchingNextPage ? "Loading..." : "Show More"}
       </button>
     </div>
   );
 };
 
-const SkeletonGrid = ({ itemCount = 12, gridClasses = "" }) => {
+const SkeletonGrid = ({ itemCount = 9, gridClasses = "" }) => {
   return (
-    <div className={`grid gap-x-6 mt-5 ${gridClasses}`}>
+    <div className={`grid gap-x-6 mt-5 ${gridClasses} grid-cols-3 gap-y-6`}>
       {Array.from({ length: itemCount }).map((_, index) => (
         <div
           key={index}
-          className="skeleton rounded-2xl aspect-square skeleton-item"
+          className="skeleton rounded-1xl aspect-square skeleton-item"
         ></div>
       ))}
     </div>
@@ -60,9 +57,8 @@ const SkeletonGrid = ({ itemCount = 12, gridClasses = "" }) => {
 };
 
 const IMAGE_WIDTH = 301.91;
-const ITEMS_PER_PAGE = 16;
+const ITEMS_PER_PAGE = 9; // <-- force 9 items per link
 
-// Handles favorite-related effects
 const useFavoriteEffect = (
   itemId,
   userData,
@@ -85,7 +81,6 @@ const useFavoriteEffect = (
   }, [itemId, userData, isFavorite, saveFavorite, deleteFavorite]);
 };
 
-// Manages scroll positions for house listings
 const useScrollPositions = (houseListingData) => {
   const [localScrollPositions, setLocalScrollPositions] = useState({});
 
@@ -107,7 +102,6 @@ const useScrollPositions = (houseListingData) => {
   return [localScrollPositions, setLocalScrollPositions];
 };
 
-// Handles window scroll event listeners
 const useWindowScrollEffect = (handleWindowScroll) => {
   useEffect(() => {
     window.addEventListener("scroll", handleWindowScroll);
@@ -115,26 +109,7 @@ const useWindowScrollEffect = (handleWindowScroll) => {
   }, [handleWindowScroll]);
 };
 
-// Manages screen size detection
-const useScreenSize = () => {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 743px)");
-    setIsSmallScreen(mediaQuery?.matches);
-
-    const handleResize = (event) => setIsSmallScreen(event.matches);
-    mediaQuery?.addEventListener("change", handleResize);
-
-    return () => mediaQuery?.removeEventListener("change", handleResize);
-  }, []);
-
-  return isSmallScreen;
-};
-
-// Manages scroll restoration and position
 const useScrollRestoration = (selectedIcon, startScroll) => {
-  // Initial scroll restoration
   useLayoutEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
@@ -142,13 +117,11 @@ const useScrollRestoration = (selectedIcon, startScroll) => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Handle scroll position based on startScroll
   useLayoutEffect(() => {
     if (!startScroll) window.scrollTo(0, 10);
   }, [selectedIcon, startScroll]);
 };
 
-// Main hook that combines all functionality
 const useCustomEffects = ({
   itemId,
   userData,
@@ -161,32 +134,25 @@ const useCustomEffects = ({
   startScroll,
   showMore,
 }) => {
-  // Initialize individual hooks
-  const isSmallScreen = useScreenSize();
   const [localScrollPositions, setLocalScrollPositions] =
     useScrollPositions(houseListingData);
 
-  // Set up all effects
   useFavoriteEffect(itemId, userData, isFavorite, saveFavorite, deleteFavorite);
   useWindowScrollEffect(handleWindowScroll);
   useScrollRestoration(selectedIcon, startScroll);
 
-  // Handle showMore updates
   useEffect(() => {
     showMore.current = true;
   }, [selectedIcon, showMore]);
 
   return {
-    isSmallScreen,
     showMore,
     localScrollPositions,
     setLocalScrollPositions,
   };
 };
 
-// Handles the item-level scroll logic
 const useItemScroll = (setLocalScrollPositions, houseImagesRefs) => {
-  // Track horizontal scroll position
   const handleScroll = useCallback(
     (itemId) => {
       const container = houseImagesRefs.current[itemId];
@@ -204,7 +170,6 @@ const useItemScroll = (setLocalScrollPositions, houseImagesRefs) => {
     [setLocalScrollPositions, houseImagesRefs]
   );
 
-  // Handle scroll button clicks
   const handleScrollBtn = useCallback(
     (e, direction, itemId) => {
       e.preventDefault();
@@ -222,7 +187,6 @@ const useItemScroll = (setLocalScrollPositions, houseImagesRefs) => {
   return { handleScroll, handleScrollBtn };
 };
 
-// Handles the window-level scroll logic
 const useWindowScroll = (
   containerRef,
   showMore,
@@ -235,7 +199,6 @@ const useWindowScroll = (
   const handleWindowScroll = useCallback(() => {
     const currentScrollPosition = window.scrollY;
 
-    // Handle UI state updates
     dispatch(setMinimize(false));
     dispatch(setActiveInput(""));
 
@@ -245,7 +208,6 @@ const useWindowScroll = (
       dispatch(setStartScroll(true));
     }
 
-    // Handle infinite scroll
     if (!showMore.current) {
       if (
         containerRef.current &&
@@ -269,7 +231,6 @@ const useWindowScroll = (
   return handleWindowScroll;
 };
 
-// Main hook that combines both scroll handlers
 const useScrollHandlers = ({
   setLocalScrollPositions,
   hasNextPage,
@@ -332,7 +293,6 @@ const useHouseListingData = (ids, selectedIcon, selectedCountry, city) => {
   };
 };
 
-// Main house component
 const House = () => {
   const [localScrollPositions, setLocalScrollPositions] = useState({});
   const houseImagesRefs = useRef({});
@@ -351,7 +311,6 @@ const House = () => {
     inputSearchIds: ids,
   } = useSelector((store) => store.app);
 
-  // Fetch house data
   const {
     houseListingData,
     fetchNextPage,
@@ -371,64 +330,60 @@ const House = () => {
       showMore,
     });
 
-  const { isSmallScreen } = useCustomEffects({
-    itemId,
-    userData,
-    isFavorite,
-    favListings,
-    saveFavorite,
-    deleteFavorite,
-    houseListingData,
-    handleWindowScroll,
-    selectedIcon,
-    startScroll,
-    showMore,
-  });
+  const { showMore: showMoreVal, localScrollPositions: lsp, setLocalScrollPositions: setLsp } =
+    useCustomEffects({
+      itemId,
+      userData,
+      isFavorite,
+      favListings,
+      saveFavorite,
+      deleteFavorite,
+      houseListingData,
+      handleWindowScroll,
+      selectedIcon,
+      startScroll,
+      showMore,
+    });
+
+  // Flatten all fetched pages into a single list
+  const allItems = houseListingData?.pages.flatMap((p) => p) ?? [];
+
+  // Visible count = number of pages fetched * items per page (so initial = 1 * 9 = 9)
+  const visibleCount =
+    Math.min(allItems.length, (houseListingData?.pages?.length || 1) * ITEMS_PER_PAGE) ||
+    Math.min(allItems.length, ITEMS_PER_PAGE);
+
+  // Items to render (strictly 3x3 grid per "page")
+  const itemsToRender = allItems.slice(0, visibleCount);
 
   return (
     <div
-      className={`relative pb-14 w-full transition-transform duration-[0.3s] ease-in-out 1xs:px-10 px-5  1xl:px-20 top-[4rem] ${
-        !startScroll
-          ? "-translate-y-[4.8rem] "
-          : "1sm:translate-y-[4rem] 1md:translate-y-[0rem]"
+      className={`relative pb-14 w-full transition-transform duration-[0.3s] ease-in-out px-5 1xl:px-20 top-[4rem] ${
+        !startScroll ? "-translate-y-[4.8rem]" : "translate-y-[0rem]"
       }`}
       ref={containerRef}
     >
-      <div className="grid    gap-x-6 1md:grid-cols-three-col grid-cols-1 gap-y-10 1lg:my-grid-cols-four-col 2xl:my-grid-cols-six-col justify-center w-full items-start 1xs:grid-cols-two-col 1lg:gap-y-4 xl:gap-y-8  1md:gap-y-10 1xs:gap-y-10 grid-flow-row">
+      <div className="grid grid-cols-3 gap-x-6 gap-y-6 justify-center w-full items-start">
         {status === "pending" ? (
-          <SkeletonLoaderList></SkeletonLoaderList>
+          <SkeletonLoaderList />
         ) : (
-          houseListingData?.pages.flatMap((page) =>
-            page.map((item, index) =>
-              isSmallScreen ? (
-                <MobileHouseCard
-                  key={item.id}
-                  item={item}
-                  localScrollPositions={localScrollPositions}
-                  userData={userData}
-                  favListings={favListings}
-                  handleScroll={handleScroll}
-                  handleScrollBtn={handleScrollBtn}
-                  houseImagesRefs={houseImagesRefs}
-                  index={index}
-                ></MobileHouseCard>
-              ) : (
-                <HouseCard
-                  key={item.id}
-                  item={item}
-                  localScrollPositions={localScrollPositions}
-                  userData={userData}
-                  favListings={favListings}
-                  handleScroll={handleScroll}
-                  handleScrollBtn={handleScrollBtn}
-                  houseImagesRefs={houseImagesRefs}
-                  index={index}
-                />
-              )
-            )
-          )
+          itemsToRender.map((item, index) => (
+            <HouseCard
+              key={item.id}
+              item={item}
+              localScrollPositions={localScrollPositions}
+              userData={userData}
+              favListings={favListings}
+              handleScroll={handleScroll}
+              handleScrollBtn={handleScrollBtn}
+              houseImagesRefs={houseImagesRefs}
+              index={index}
+            />
+          ))
         )}
       </div>
+
+      {/* Continue / Show more logic */}
       {!!houseListingData && showMore?.current && hasNextPage && (
         <ContinueExploring
           selectedIcon={selectedIcon}
@@ -441,11 +396,8 @@ const House = () => {
 
       {isFetchingNextPage && (
         <SkeletonGrid
-          itemCount={12}
-          gridClasses="1md:grid-cols-three-col grid-cols-1 gap-y-10 
-        1lg:my-grid-cols-four-col 2xl:my-grid-cols-six-col 
-        justify-center w-full items-start 1xs:grid-cols-two-col 
-        1lg:gap-y-4 xl:gap-y-8 1md:gap-y-10 1xs:gap-y-10 grid-flow-row"
+          itemCount={9}
+          gridClasses="justify-center w-full items-start grid-cols-3 gap-y-6"
         />
       )}
     </div>

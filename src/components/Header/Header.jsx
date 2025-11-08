@@ -10,19 +10,16 @@ import MobileForm from "./Form/MobileForm";
 function Header({ headerRef }) {
   const location = useLocation();
 
-  // Determine if the user is on specific pages based on the URL path
   const isHouseDetailPage = location.pathname.includes("/house/");
   const isWishListPage = location.pathname.includes("/wishlist");
   const isTripsPage = location.pathname.includes("trips");
   const isSignInPage = location.pathname.includes("/login");
   const isProfilePage = location.pathname.includes("/account-settings");
 
-  // Select which slice of the Redux store to use
   const currentSlice = isHouseDetailPage ? "houseSlice" : "app";
   const startScroll = useSelector((store) => store[currentSlice]?.startScroll);
   const minimizeHeader = useSelector((store) => store.app.minimize);
 
-  // Generate class names for the "after" element depending on page state and scroll position
   const afterClass = generateAfterClass({
     startScroll,
     minimizeHeader,
@@ -58,27 +55,11 @@ function Header({ headerRef }) {
         )}
 
         <div className="h-20 1xz:flex hidden items-center justify-end">
-          <button className="text-sm h-[2.5rem] cursor-auto hidden 1smm:flex items-center justify-center rounded-full hover:bg-shadow-gray-light text-nowrap max-w-36 px-2 w-full font-[450]">
-            Airbnb your home
-          </button>
-
-          <a
-            href="https://github.com/Rajat1120/Airbnb-Clone"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="min-h-9 cursor-pointer 1smm:flex items-center justify-center rounded-full hover:bg-shadow-gray-light min-w-9">
-              <img className="h-5 w-5" src={github} alt="GitHub Repo" />
-            </button>
-          </a>
-
           <UserDashboard />
         </div>
 
         <AuthenticationModal />
       </div>
-
-      <MobileFormSection />
 
       {!isWishListPage && !isSignInPage && !isTripsPage && !isProfilePage && (
         <MainFormSection headerRef={headerRef} />
@@ -87,17 +68,15 @@ function Header({ headerRef }) {
   );
 }
 
-// Helper Components
 
-// Renders the Airbnb logo and text
 function LogoSection() {
   return (
     <div className="w-8">
       <a href="/">
         <div className="1xz:flex hidden h-20 items-center">
           <img className="mr-2 h-36 " src={icon} alt="Airbnb Logo" />
-          <h1 className="text-2xl 1lg:flex-center hidden leading-8 text-pink text-start font-semibold">
-            airbnb
+          <h1 className="text-2xl 1lg:flex-center hidden leading-8 text-deepblue text-start font-semibold" style={{ color: "#1277e1" }}>
+            LocAI
           </h1>
         </div>
       </a>
@@ -127,14 +106,6 @@ function CenterButtons({ startScroll, minimizeHeader }) {
   );
 }
 
-// Renders the mobile form if the screen size is small
-function MobileFormSection() {
-  return (
-    <div className="1xz:hidden w-full absolute top-0 flex">
-      <MobileForm />
-    </div>
-  );
-}
 
 // Renders the main form component if it's not on specific pages
 function MainFormSection({ headerRef }) {
