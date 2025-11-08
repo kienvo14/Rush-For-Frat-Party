@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { svg } from "../../asset/HeartIconSvg";
-import { useQuery } from "@tanstack/react-query";
-import { getWishList } from "../../api/apiRooms";
-
-import { deleteFavorite, saveFavorite } from "../../api/apiAuthentication";
-
-import WishlistPage from "./WishListPage";
+import WishlistPage from "./WishListPage"; // UI component
 import { useSelector } from "react-redux";
 
 const Wishlist = () => {
   const [wishList, setWishList] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   const { favListings, userData, isFavorite, itemId } = useSelector(
     (store) => ({
       favListings: store.app.userFavListing,
@@ -20,47 +17,27 @@ const Wishlist = () => {
     })
   );
 
+  let firstRender = useRef(false);
+
+  // Fetch 9 random properties from backend
   useEffect(() => {
-    const handleUpdate = async () => {
-      if (itemId && userData) {
-        if (isFavorite) {
-          await saveFavorite(itemId);
-        } else {
-          await deleteFavorite(itemId);
-        }
+    const fetchProperties = async () => {
+      try {
+        const res = await fetch("http://127.0.0.1:5000/properties"); // Flask backend
+        const data = await res.json();
+        setWishList(data);
+      } catch (err) {
+        console.error("Failed to fetch properties:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    handleUpdate();
-  }, [favListings, isFavorite, userData, itemId]);
-
-  const { data, refetch, isLoading } = useQuery({
-    queryKey: ["wishList"],
-    queryFn: () => getWishList(favListings),
-    enabled: false,
-  });
-
-  let firstRender = useRef(false);
-
-  useEffect(() => {
-    let timeoutId;
-
-    if (favListings.length && !firstRender.current) {
-      refetch();
-
-      timeoutId = setTimeout(() => {
-        firstRender.current = true;
-      }, 1000);
+    if (!firstRender.current) {
+      fetchProperties();
+      firstRender.current = true;
     }
-
-    return () => clearTimeout(timeoutId);
-  }, [refetch, favListings, isLoading]);
-
-  useEffect(() => {
-    if (data) {
-      setWishList(data); // Always set the latest data
-    }
-  }, [data]);
+  }, []);
 
   return (
     <WishlistPage
@@ -69,7 +46,7 @@ const Wishlist = () => {
       wishList={wishList}
       favListings={favListings}
       svg={svg}
-    ></WishlistPage>
+    />
   );
 };
 

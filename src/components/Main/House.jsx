@@ -45,7 +45,7 @@ const ContinueExploring = ({
 
 const SkeletonGrid = ({ itemCount = 9, gridClasses = "" }) => {
   return (
-    <div className={`grid gap-x-6 mt-5 ${gridClasses} grid-cols-3 gap-y-6`}>
+    <div className={`grid gap-x-4 mt-5 ${gridClasses} grid-cols-3 gap-y-6`}>
       {Array.from({ length: itemCount }).map((_, index) => (
         <div
           key={index}
@@ -57,7 +57,7 @@ const SkeletonGrid = ({ itemCount = 9, gridClasses = "" }) => {
 };
 
 const IMAGE_WIDTH = 301.91;
-const ITEMS_PER_PAGE = 9; // <-- force 9 items per link
+const ITEMS_PER_PAGE = 9;
 
 const useFavoriteEffect = (
   itemId,
@@ -345,15 +345,12 @@ const House = () => {
       showMore,
     });
 
-  // Flatten all fetched pages into a single list
   const allItems = houseListingData?.pages.flatMap((p) => p) ?? [];
 
-  // Visible count = number of pages fetched * items per page (so initial = 1 * 9 = 9)
   const visibleCount =
     Math.min(allItems.length, (houseListingData?.pages?.length || 1) * ITEMS_PER_PAGE) ||
     Math.min(allItems.length, ITEMS_PER_PAGE);
 
-  // Items to render (strictly 3x3 grid per "page")
   const itemsToRender = allItems.slice(0, visibleCount);
 
   return (
@@ -363,24 +360,27 @@ const House = () => {
       }`}
       ref={containerRef}
     >
-      <div className="grid grid-cols-3 gap-x-6 gap-y-6 justify-center w-full items-start">
-        {status === "pending" ? (
-          <SkeletonLoaderList />
-        ) : (
-          itemsToRender.map((item, index) => (
-            <HouseCard
-              key={item.id}
-              item={item}
-              localScrollPositions={localScrollPositions}
-              userData={userData}
-              favListings={favListings}
-              handleScroll={handleScroll}
-              handleScrollBtn={handleScrollBtn}
-              houseImagesRefs={houseImagesRefs}
-              index={index}
-            />
-          ))
-        )}
+      {/* Main grid container with max-width constraint */}
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-6 justify-center items-start">
+          {status === "pending" ? (
+            <SkeletonLoaderList />
+          ) : (
+            itemsToRender.map((item, index) => (
+              <HouseCard
+                key={item.id}
+                item={item}
+                localScrollPositions={localScrollPositions}
+                userData={userData}
+                favListings={favListings}
+                handleScroll={handleScroll}
+                handleScrollBtn={handleScrollBtn}
+                houseImagesRefs={houseImagesRefs}
+                index={index}
+              />
+            ))
+          )}
+        </div>
       </div>
 
       {/* Continue / Show more logic */}
@@ -395,10 +395,12 @@ const House = () => {
       )}
 
       {isFetchingNextPage && (
-        <SkeletonGrid
-          itemCount={9}
-          gridClasses="justify-center w-full items-start grid-cols-3 gap-y-6"
-        />
+        <div className="max-w-6xl mx-auto">
+          <SkeletonGrid
+            itemCount={9}
+            gridClasses=""
+          />
+        </div>
       )}
     </div>
   );

@@ -66,8 +66,6 @@ const Home = () => {
       <div className="w-full 1smd:flex-center bg-white border-t border-grey-light-50">
         <Footer />
       </div>
-
-     
       <SpeedInsights />
     </div>
   );
